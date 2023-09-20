@@ -1,4 +1,4 @@
-import {ElevenLabs} from "./elevenlabs.js";
+import ElevenLabs from "./elevenlabs.js";
 
 const elevenLabs = new ElevenLabs("API-KEY", "./output");
 
