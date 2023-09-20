@@ -7,9 +7,20 @@ class ElevenLabs {
         this.apiUrl = "https://api.elevenlabs.io/v1";
         this.outputFolder = options.outputFolder;
 
-        if(!fs.existsSync(options.outputFolder)){
-            fs.mkdirSync(options.outputFolder);
-        }
+        this.#createFolders(this.outputFolder);
+    }
+
+    #createFolders(path){
+        const folders = path.split("/");
+        let folderPath = ".";
+
+        folders.forEach((folder) => {
+            if(!fs.existsSync(Path.resolve(folderPath, folder))){
+                fs.mkdirSync(Path.resolve(folderPath, folder));
+            }
+
+            folderPath += `/${folder}`;
+        });
     }
 
     async tts(text, voiceId, modelId = "eleven_multilingual_v2", voiceSettings = {stability: 0.5, similarity_boost: 0.75}, params = {output_format: "mp3_44100_128", optimize_streaming_latency: 0}){
