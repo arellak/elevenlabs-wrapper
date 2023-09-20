@@ -10,7 +10,12 @@ Wrapper for the ElevenLabs API<br>
 import { ElevenLabs } from "elevenlabs";
 
 // Create a new instance of ElevenLabs
-const elevenlabs = new ElevenLabs(apiKey, outputFolder);
+const elevenlabs = new ElevenLabs(
+    {
+        apiKey: "YOUR_API_KEY",
+        outputFolder: "./output"
+    }
+);
 ```
 ## Constructor Options<br>
 | Option | Type | Description | default | notes |
