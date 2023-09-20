@@ -1,14 +1,9 @@
 {
   "name": "@snowcase/elevenlabs-wrapper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Wrapper for the ElevenLabs API",
-  "main": "src/app.js",
+  "main": "src/elevenlabs.js",
   "type": "module",
-  "scripts": {
-    "start": "npm run start:dev",
-    "start:dev": "npm run lint && node src/app.js",
-    "lint": "eslint ."
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arellak/elevenlabs-wrapper.git"
