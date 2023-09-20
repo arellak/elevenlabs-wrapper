@@ -43,6 +43,18 @@ class ElevenLabs {
         return `File written successfully: ${fileName}`;
     }
 
+    async getModels(){
+        return await fetch(`${this.apiUrl}/models`, {
+            method: "GET",
+            headers: {
+                accept: "application/json",
+                "xi-api-key": this.apiKey || "",
+            },
+        }).then((response) => response.json()).catch((error) => {
+            console.log(error);
+        });
+    }
+
     async getVoices(){
         return await fetch(`${this.apiUrl}/voices`, {
             method: "GET",
