@@ -5,7 +5,9 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "run": "node src/app.js"
+    "start": "npm run start:dev",
+    "start:dev": "npm run lint && node src/app.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
