@@ -1,5 +1,5 @@
 {
-  "name": "@snowcase/elevenlabs-wrapper",
+  "name": "@arellak/elevenlabs-wrapper",
   "version": "1.0.3",
   "description": "Wrapper for the ElevenLabs API",
   "main": "src/elevenlabs.js",
