@@ -1,6 +1,6 @@
 {
   "name": "@arellak/elevenlabs-wrapper",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Wrapper for the ElevenLabs API",
   "main": "src/elevenlabs.js",
   "type": "module",
