@@ -2,13 +2,13 @@ import * as fs from "fs";
 import * as Path from "path";
 
 class ElevenLabs {
-    constructor(apiKey, outputFolder = "./output"){
-        this.apiKey = apiKey;
+    constructor(options = {apiKey: "", outputFolder: "./output"}){
+        this.apiKey = options.apiKey;
         this.apiUrl = "https://api.elevenlabs.io/v1";
-        this.outputFolder = outputFolder;
+        this.outputFolder = options.outputFolder;
 
-        if(!fs.existsSync(outputFolder)){
-            fs.mkdirSync(outputFolder);
+        if(!fs.existsSync(options.outputFolder)){
+            fs.mkdirSync(options.outputFolder);
         }
     }
 
