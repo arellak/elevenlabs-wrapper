@@ -43,6 +43,11 @@ class ElevenLabs {
         return `File written successfully: ${fileName}`;
     }
 
+    async getLettersLeft(){
+        const userInfo = await this.getUserInfo();
+        return userInfo === undefined ? undefined : userInfo.subscription.character_limit - userInfo.subscription.character_count;
+    }
+
     async getModels(){
         return await fetch(`${this.apiUrl}/models`, {
             method: "GET",
