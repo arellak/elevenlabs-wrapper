@@ -1,5 +1,10 @@
 # ElevenLabs API Wrapper
 Wrapper for the ElevenLabs API<br>
+
+## How to use
+1. Create a new project
+2. Use `npm install @snowcase/elevenlabs` to install the package
+
 ```js
 // import ElevenLabs Wrapper
 import { ElevenLabs } from "elevenlabs";

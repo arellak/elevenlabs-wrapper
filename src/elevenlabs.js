@@ -291,4 +291,4 @@ class ElevenLabs {
     }
 }
 
-export {ElevenLabs};
+export default ElevenLabs;
