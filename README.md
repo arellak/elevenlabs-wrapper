@@ -17,7 +17,19 @@ const elevenlabs = new ElevenLabs(apiKey, outputFolder);
 ```js
 // Converts text to speech, saves the file to the output folder and returns the relative path to the file.
 // Output file is in the following format: date-time.mp3
-ElevenLabs.tts(text, voiceId, modelId = "eleven_multilingual_v2", voiceSettings = {stability: 0.5, similarity_boost: 0.75}, params = {output_format: "mp3_44100_128", optimize_streaming_latency: 0});
+ElevenLabs.tts(
+    text,
+    voiceId,
+    modelId = "eleven_multilingual_v2",
+    voiceSettings = {
+        stability: 0.5,
+        similarity_boost: 0.75
+    },
+    params = {
+        output_format: "mp3_44100_128",
+        optimize_streaming_latency: 0
+    }
+);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
