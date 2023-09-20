@@ -3,7 +3,7 @@ Wrapper for the ElevenLabs API<br>
 
 ## How to use
 1. Create a new project
-2. Use `npm install @arellak/elevenlabs` to install the package
+2. Use `npm install @arellak/elevenlabs-wrapper` to install the package
 
 ```js
 // import ElevenLabs Wrapper
