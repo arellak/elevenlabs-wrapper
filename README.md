@@ -2,7 +2,7 @@
 Wrapper for the ElevenLabs API<br>
 ```js
 // import ElevenLabs Wrapper
-import { ElevenLabs } from 'elevenlabs-api-wrapper';
+import { ElevenLabs } from "elevenlabs";
 
 // Create a new instance of ElevenLabs
 const elevenlabs = new ElevenLabs(apiKey, outputFolder);
