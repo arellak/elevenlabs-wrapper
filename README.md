@@ -141,5 +141,5 @@ ElevenLabs.deleteHistoryItem(historyItemId);
 | historyItemId | string | history item id to be used | undefined | - |
 
 ## Need help? 
-Discord: @arellak
+Discord: @arellak<br>
 E-Mail: [contact@arellak.de](mailto:contact@arellak.de)
