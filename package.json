@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/arellak/elevenlabs-wrapper/issues"
   },
-  "homepage": "https://github.com/arellak/elevenlabs-wrapper#readme"
+  "homepage": "https://github.com/arellak/elevenlabs-wrapper#readme",
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.22.15",
+    "eslint": "^8.49.0"
+  }
 }
