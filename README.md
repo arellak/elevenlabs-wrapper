@@ -123,8 +123,8 @@ ElevenLabs.editVoiceSettings(voiceId, voiceSettings);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
-| settings | object | voice settings | {stability: 0.5, similarity_boost: 0.75} | {stability, similarity_boost, style, use_speaker_boost} |
 | voiceId | string | voice id to be used | undefined | - |
+| voiceSettings | object | voice settings | {stability: 0.5, similarity_boost: 0.75} | {stability, similarity_boost, style, use_speaker_boost} |
 <br>
 
 ```js
