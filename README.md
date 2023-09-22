@@ -128,6 +128,8 @@ ElevenLabs.editVoiceSettings(voiceId, voiceSettings);
 <br>
 
 ```js
+// Add a new voice with the given name, description, file paths and labels
+// Returns the voice id
 ElevenLabs.addVoice(name, description, filePaths, labels);
 ```
 | Option | Type | Description | default | notes |
