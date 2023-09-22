@@ -128,6 +128,18 @@ ElevenLabs.editVoiceSettings(voiceId, voiceSettings);
 <br>
 
 ```js
+// Add a new voice with the given name, description, file paths and labels
+// Returns the voice id
+ElevenLabs.addVoice(name, description, filePaths, labels);
+```
+| Option | Type | Description | default | notes |
+| --- | --- | --- | --- | --- |
+| name | string | name of the voice | undefined | - |
+| description | string | description of the voice | "" | - |
+| filePaths | array | array of file paths | undefined | - |
+| labels | object | object of labels | {} | {accent: "german"} |
+
+```js
 // Deletes a voice
 ElevenLabs.deleteVoice(voiceId);
 ```
