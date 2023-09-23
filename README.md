@@ -1,6 +1,11 @@
 # ElevenLabs API Wrapper
 Wrapper for the ElevenLabs API<br>
 
+## Requirements
+- [Node.js](https://nodejs.org/en/)
+- [ElevenLabs Account](https://elevenlabs.io/)
+- nothing else. it builds on top of built-in node modules.
+
 ## How to use
 1. Create a new project
 2. Use `npm install @arellak/elevenlabs-wrapper` to install the package
