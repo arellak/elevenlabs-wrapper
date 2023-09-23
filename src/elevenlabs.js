@@ -2,6 +2,11 @@ import * as fs from "fs";
 import * as Path from "path";
 
 class ElevenLabs {
+    /**
+     *  Creates an instance of ElevenLabs.
+     * @param {object} [options={apiKey: "", outputFolder: "./output"}]
+     * @memberof ElevenLabs
+     */
     constructor(options = {apiKey: "", outputFolder: "./output"}){
         this.apiKey = options.apiKey;
         this.apiUrl = "https://api.elevenlabs.io/v1";
@@ -23,6 +28,17 @@ class ElevenLabs {
         });
     }
 
+
+    /**
+     *
+     * @param {string} text
+     * @param {string} voiceId
+     * @param {string} [modelId = "eleven_multilingual_v2"]
+     * @param {object} [voiceSettings = {stability: 0.5, similarity_boost: 0.75}]
+     * @param {object} [params = {output_format: "mp3_44100_128", optimize_streaming_latency: 0}]
+     * @return Status message
+     * @memberof ElevenLabs
+     */
     async tts(text, voiceId, modelId = "eleven_multilingual_v2", voiceSettings = {stability: 0.5, similarity_boost: 0.75}, params = {output_format: "mp3_44100_128", optimize_streaming_latency: 0}){
         const body = {
             text,
@@ -54,6 +70,15 @@ class ElevenLabs {
         return `File written successfully: ${fileName}`;
     }
 
+
+    /**
+     *
+     * @param {string} name
+     * @param {array} filePaths
+     * @param {object} [optionalSettings={}]
+     * @return voiceId
+     * @memberof ElevenLabs
+     */
     async addVoice(name, filePaths, optionalSettings = {}){
         const formData = new FormData();
 
@@ -78,6 +103,15 @@ class ElevenLabs {
         return response;
     }
 
+
+    /**
+     *
+     * @param {string} name
+     * @param {string} voiceId
+     * @param {object} [optionalSettings = {}]
+     * @return status message
+     * @memberof ElevenLabs
+     */
     async editVoice(name, voiceId, optionalSettings = {}){
         const formData = new FormData();
 
@@ -104,11 +138,23 @@ class ElevenLabs {
         return response;
     }
 
+
+    /**
+     *
+     * @return remaining letters you have left in your subscription
+     * @memberof ElevenLabs
+     */
     async getRemainingLetters(){
         const userInfo = await this.getUserInfo();
         return userInfo === undefined ? undefined : userInfo.subscription.character_limit - userInfo.subscription.character_count;
     }
 
+
+    /**
+     *
+     * @return all the models that are available
+     * @memberof ElevenLabs
+     */
     async getModels(){
         return await fetch(`${this.apiUrl}/models`, {
             method: "GET",
@@ -121,6 +167,12 @@ class ElevenLabs {
         });
     }
 
+
+    /**
+     *
+     * @return all the voices including the custom ones and the default ones
+     * @memberof ElevenLabs
+     */
     async getVoices(){
         return await fetch(`${this.apiUrl}/voices`, {
             method: "GET",
@@ -133,6 +185,12 @@ class ElevenLabs {
         });
     }
 
+
+    /**
+     *
+     * @return all the voices you created
+     * @memberof ElevenLabs
+     */
     async getCustomVoices(){
         const voices = await fetch(`${this.apiUrl}/voices`, {
             method: "GET",
@@ -145,6 +203,12 @@ class ElevenLabs {
         return voices.voices.filter((voice) => voice.category === "cloned");
     }
 
+
+    /**
+     *
+     * @return all the voice ids of voices you created
+     * @memberof ElevenLabs
+     */
     async getCustomVoiceIds(){
         const voices = await this.getCustomVoices();
         return voices.map((voice) => {
@@ -155,6 +219,12 @@ class ElevenLabs {
         });
     }
 
+
+    /**
+     *
+     * @return default settings for voices
+     * @memberof ElevenLabs
+     */
     async getDefaultVoiceSettings(){
         return await fetch(`${this.apiUrl}/voices/settings/default`, {
             method: "GET",
@@ -164,6 +234,13 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @param {string} voiceId
+     * @return settings for a specific voice
+     * @memberof ElevenLabs
+     */
     async getVoiceSettings(voiceId){
         return await fetch(`${this.apiUrl}/voices/${voiceId}/settings`, {
             method: "GET",
@@ -174,6 +251,14 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @param {object} settings
+     * @param {string} voiceId
+     * @return status message
+     * @memberof ElevenLabs
+     */
     async editVoiceSettings(settings, voiceId){
         return await fetch(`${this.apiUrl}/voices/${voiceId}/settings/edit`, {
             method: "POST",
@@ -186,6 +271,13 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @param {string} voiceId
+     * @return a specific voice object
+     * @memberof ElevenLabs
+     */
     async getVoice(voiceId){
         return await fetch(`${this.apiUrl}/voices/${voiceId}?with_settings=false`, {
             method: "GET",
@@ -196,6 +288,13 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @param {string} voiceId
+     * @return status message
+     * @memberof ElevenLabs
+     */
     async deleteVoice(voiceId){
         return await fetch(`${this.apiUrl}/voices/${voiceId}`, {
             method: "DELETE",
@@ -206,6 +305,13 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @param {string} voiceId
+     * @return all the sample ids of a specific voice
+     * @memberof ElevenLabs
+     */
     async getSampleIds(voiceId){
         const voice = await this.getVoice(voiceId);
         return voice.samples.map((sample) => {
@@ -216,6 +322,14 @@ class ElevenLabs {
         });
     }
 
+
+    /**
+     *
+     * @param {string} voiceId
+     * @param {string} sampleId
+     * @return status message
+     * @memberof ElevenLabs
+     */
     async getAudioFromSample(voiceId, sampleId){
         const response = await fetch(`${this.apiUrl}/voices/${voiceId}/samples/${sampleId}/audio`, {
             method: "GET",
@@ -241,6 +355,14 @@ class ElevenLabs {
         return `File written successfully: ${fileName}`;
     }
 
+
+    /**
+     *
+     * @param {string} voiceId
+     * @param {string} sampleId
+     * @return status message
+     * @memberof ElevenLabs
+     */
     async deleteSample(voiceId, sampleId){
         return await fetch(`${this.apiUrl}/voices/${voiceId}/samples/${sampleId}`, {
             method: "DELETE",
@@ -251,6 +373,12 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @return history object
+     * @memberof ElevenLabs
+     */
     async getHistory(){
         return await fetch(`${this.apiUrl}/history`, {
             method: "GET",
@@ -261,6 +389,13 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @param {string} historyItemId
+     * @return history item object
+     * @memberof ElevenLabs
+     */
     async getHistoryItem(historyItemId){
         return await fetch(`${this.apiUrl}/history/${historyItemId}`, {
             method: "GET",
@@ -271,6 +406,13 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @param {string} historyItemId
+     * @return status message
+     * @memberof ElevenLabs
+     */
     async getAudioFromHistoryItem(historyItemId){
         const response = await fetch(`${this.apiUrl}/history/${historyItemId}/audio`, {
             method: "GET",
@@ -296,6 +438,13 @@ class ElevenLabs {
         return `File written successfully: ${fileName}`;
     }
 
+
+    /**
+     *
+     * @param {string} historyItemId
+     * @return status message
+     * @memberof ElevenLabs
+     */
     async deleteHistoryItem(historyItemId){
         return await fetch(`${this.apiUrl}/history/${historyItemId}`, {
             method: "DELETE",
@@ -306,6 +455,13 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @param {array} historyItemIds
+     * @return status message
+     * @memberof ElevenLabs
+     */
     async downloadHistoryItems(historyItemIds){
         const response = await fetch(`${this.apiUrl}/history/download`, {
             method: "POST",
@@ -336,6 +492,12 @@ class ElevenLabs {
         return `File written successfully: ${fileName}`;
     }
 
+
+    /**
+     *
+     * @return user object
+     * @memberof ElevenLabs
+     */
     async getUserInfo(){
         return await fetch(`${this.apiUrl}/user`, {
             method: "GET",
@@ -346,6 +508,12 @@ class ElevenLabs {
         }).then((response) => response.json());
     }
 
+
+    /**
+     *
+     * @return subscription object
+     * @memberof ElevenLabs
+     */
     async getUserSubscriptionInfo(){
         return await fetch(`${this.apiUrl}/user/subscription`, {
             method: "GET",
