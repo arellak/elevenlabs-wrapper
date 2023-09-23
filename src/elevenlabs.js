@@ -54,12 +54,12 @@ class ElevenLabs {
         return `File written successfully: ${fileName}`;
     }
 
-    async addVoice(name, description = "", filePaths, labels = {}){
+    async addVoice(name, filePaths, optionalSettings = {}){
         const formData = new FormData();
 
         formData.append("name", name);
-        if(description !== "") formData.append("description", description);
-        if(Object.keys(labels).length > 0) formData.append("labels", JSON.stringify(labels));
+        if(optionalSettings.description !== undefined && optionalSettings.description !== "") formData.append("description", optionalSettings.description);
+        if(Object.keys(optionalSettings.labels).length > 0) formData.append("labels", JSON.stringify(optionalSettings.labels));
 
         for(const filePath of filePaths){
             const file = new File([fs.readFileSync(filePath)], Path.basename(filePath), {type: "audio/mpeg"});
@@ -67,6 +67,32 @@ class ElevenLabs {
         }
 
         const response = await fetch(`${this.apiUrl}/voices/add`, {
+            method: "POST",
+            headers: {
+                accept: "application/json",
+                "xi-api-key": this.apiKey || "",
+            },
+            body: formData,
+        }).then((res) => res.json());
+
+        return response;
+    }
+
+    async editVoice(name, voiceId, optionalSettings = {}){
+        const formData = new FormData();
+
+        formData.append("name", name);
+        if(optionalSettings.description !== undefined && optionalSettings.description !== "") formData.append("description", optionalSettings.description);
+        if(Object.keys(optionalSettings.labels).length > 0) formData.append("labels", JSON.stringify(optionalSettings.labels));
+
+        if(optionalSettings.filePaths !== undefined){
+            for(const filePath of optionalSettings.filePaths){
+                const file = new File([fs.readFileSync(filePath)], Path.basename(filePath), {type: "audio/mpeg"});
+                formData.append("files", file);
+            }
+        }
+
+        const response = await fetch(`${this.apiUrl}/voices/${voiceId}/edit`, {
             method: "POST",
             headers: {
                 accept: "application/json",
