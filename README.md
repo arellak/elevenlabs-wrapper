@@ -10,7 +10,7 @@ Wrapper for the ElevenLabs API<br>
 import ElevenLabs from "@arellak/elevenlabs-wrapper";
 
 // Create a new instance of ElevenLabs
-const elevenlabs = new ElevenLabs(
+const elevenLabs = new ElevenLabs(
     {
         apiKey: "YOUR_API_KEY",
         outputFolder: "./output"
@@ -28,7 +28,7 @@ const elevenlabs = new ElevenLabs(
 ```js
 // Converts text to speech, saves the file to the output folder and returns the relative path to the file.
 // Output file is in the following format: date-time.mp3
-ElevenLabs.tts(
+elevenLabs.tts(
     text,
     voiceId,
     modelId = "eleven_multilingual_v2",
@@ -51,75 +51,75 @@ ElevenLabs.tts(
 | params | object | additional params | {output_format: "mp3_44100_128", optimize_streaming_latency: 0} | - |
 <br>
 ### Streaming Latencies
-0 (default) = No optimization.
-1 = Some optimization.
-2 = More optimization.
-3 = Max optimization.
+0 (default) = No optimization.<br>
+1 = Some optimization.<br>
+2 = More optimization.<br>
+3 = Max optimization.<br>
 4 = Max optimizations & text normalizer off.
 <hr>
 
 ```js
 // Returns the remaining letters you have left for the month
-ElevenLabs.getRemainingLetters();
+elevenLabs.getRemainingLetters();
 
 // Returns all the available models
-ElevenLabs.getModels();
+elevenLabs.getModels();
 
 // Returns all the available voices
-ElevenLabs.getVoices();
+elevenLabs.getVoices();
 
 // Returns all the voices you created yourself
-ElevenLabs.getCustomVoices();
+elevenLabs.getCustomVoices();
 
 // Returns the IDs and names of the voices you created yourself
 // Example: { name:"My Voice", id:"123456789" }
-ElevenLabs.getCustomVoiceIds();
+elevenLabs.getCustomVoiceIds();
 
 // Returns default settings for voices
-ElevenLabs.getDefaultVoiceSettings();
+elevenLabs.getDefaultVoiceSettings();
 
 // Returns settings for a specific voice
-ElevenLabs.getVoiceSettings(voiceId);
+elevenLabs.getVoiceSettings(voiceId);
 
 // Returns a given voice
-ElevenLabs.getVoice(voiceId);
+elevenLabs.getVoice(voiceId);
 
 // Returns the sample names and IDs for a given voice
 // Example: { name:"My Sample", sampleId:"123456789" }
-ElevenLabs.getSampleIds(voiceId);
+elevenLabs.getSampleIds(voiceId);
 
 // Downloads audio for a given sample from a given voice
 // Saves it to the output folder specified in the constructor and returns the relative path to the file.
 // Output file is in the following format: sample_date-time.mp3
-ElevenLabs.getAudioFromSample(voiceId, sampleId);
+elevenLabs.getAudioFromSample(voiceId, sampleId);
 
 // Returns the history for the given Account
-ElevenLabs.getHistory();
+elevenLabs.getHistory();
 
 // Returns the data for the given historyItemId
-ElevenLabs.getHistoryItem(historyItemId);
+elevenLabs.getHistoryItem(historyItemId);
 
 // Downloads the audio for the given historyItemId
 // Saves it to the output folder specified in the constructor and returns the relative path to the file.
 // Output file is in the following format: history_date-time.mp3
-ElevenLabs.getAudioFromHistoryItem(historyItemId);
+elevenLabs.getAudioFromHistoryItem(historyItemId);
 
 // Download an array of history items
 // Saves them to the output folder specified in the constructor and returns an array of relative paths to the files.
 // Output files are in the following format: history_date-time.zip
 // Doesn't work yet.
-ElevenLabs.downloadHistoryItems(historyItemIds);
+elevenLabs.downloadHistoryItems(historyItemIds);
 
 // Returns information about the user's account
-ElevenLabs.getUserInfo();
+elevenLabs.getUserInfo();
 
 // Returns the user's subscription information
-ElevenLabs.getUserSubscriptionInfo();
+elevenLabs.getUserSubscriptionInfo();
 ```
 
 ```js
 // Edit voice settings for a given voice
-ElevenLabs.editVoiceSettings(voiceId, voiceSettings);
+elevenLabs.editVoiceSettings(voiceId, voiceSettings);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
@@ -130,18 +130,61 @@ ElevenLabs.editVoiceSettings(voiceId, voiceSettings);
 ```js
 // Add a new voice with the given name, description, file paths and labels
 // Returns the voice id
-ElevenLabs.addVoice(name, description, filePaths, labels);
+elevenLabs.addVoice(name, filePaths, optionalSettings);
 ```
-| Option | Type | Description | default | notes |
-| --- | --- | --- | --- | --- |
-| name | string | name of the voice | undefined | - |
-| description | string | description of the voice | "" | - |
-| filePaths | array | array of file paths | undefined | - |
-| labels | object | object of labels | {} | {accent: "german"} |
+| Option | Type | Description | default | notes | required |
+| --- | --- | --- | --- | --- | --- |
+| name | string | name of the voice | undefined | - | yes |
+| filePaths | array | array of file paths | undefined | - | yes |
+| optionalSettings | object | optional settings | {} | {description, labels} | no |
+
+```js
+// Usage example
+const newVoiceId = await elevenLabs.addVoice(
+    "TEST NAME", 
+    [
+        Path.resolve("./output/test3.mp3")
+    ], 
+    {
+        labels: { 
+            age: "early 20s"
+        },
+        description: "test description"
+    }
+);
+```
+
+```js
+// Edit the voice with a given name and voice id
+// include the optional settings you want to change
+// returns status code if it was successful
+elevenLabs.editVoice(name, voiceId, optionalSettings);
+```
+| Option | Type | Description | default | notes | required |
+| --- | --- | --- | --- | --- | --- |
+| name | string | name of the voice | undefined | - | yes |
+| voiceId | string | voice id to be used | undefined | - | yes |
+| optionalSettings | object | optional settings | {} | {description, file paths, labels} | no |
+
+```js
+// Usage example
+const editedVoice = await elevenLabs.editVoice(
+    "TEST NAME",
+    "YOUR_VOICE_ID",
+    {
+        filePaths: [
+            Path.resolve("./output/test3.mp3")
+        ],
+        labels: {
+            age: "early 20s"
+        }
+    }
+);
+```
 
 ```js
 // Deletes a voice
-ElevenLabs.deleteVoice(voiceId);
+elevenLabs.deleteVoice(voiceId);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
@@ -150,7 +193,7 @@ ElevenLabs.deleteVoice(voiceId);
 
 ```js
 // Deletes a sample with a given voice id and sample id
-ElevenLabs.deleteSample(voiceId, sampleId);
+elevenLabs.deleteSample(voiceId, sampleId);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
@@ -160,7 +203,7 @@ ElevenLabs.deleteSample(voiceId, sampleId);
 
 ```js
 // Deletes a history item with a given history item id
-ElevenLabs.deleteHistoryItem(historyItemId);
+elevenLabs.deleteHistoryItem(historyItemId);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
