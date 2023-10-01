@@ -1,5 +1,13 @@
 # ElevenLabs API Wrapper
 Wrapper for the ElevenLabs API<br>
+<br>
+<p align="center">
+<img src="https://img.shields.io/badge/NPM-red"><a href="https://www.npmjs.com/package/@arellak/elevenlabs-wrapper"></a></img>
+<img src="https://img.shields.io/github/contributors/arellak/elevenlabs-wrapper" />
+<img src="https://img.shields.io/github/issues/arellak/elevenlabs-wrapper" />
+<img src="https://img.shields.io/github/issues-pr/arellak/elevenlabs-wrapper" />
+</p>
+
 
 ## Requirements
 - [Node.js](https://nodejs.org/en/)
@@ -56,6 +64,7 @@ elevenLabs.tts(
 | params | object | additional params | {output_format: "mp3_44100_128", optimize_streaming_latency: 0} | - |
 <br>
 ### Streaming Latencies
+
 0 (default) = No optimization.<br>
 1 = Some optimization.<br>
 2 = More optimization.<br>
