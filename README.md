@@ -1,13 +1,18 @@
 # ElevenLabs API Wrapper
-Wrapper for the ElevenLabs API<br>
-<br>
+<h2 align="center">
+Wrapper for the ElevenLabs API
+</h2>
+
 <p align="center">
-<img src="https://img.shields.io/badge/NPM-red"><a href="https://www.npmjs.com/package/@arellak/elevenlabs-wrapper"></a></img>
 <img src="https://img.shields.io/github/contributors/arellak/elevenlabs-wrapper" />
 <img src="https://img.shields.io/github/issues/arellak/elevenlabs-wrapper" />
 <img src="https://img.shields.io/github/issues-pr/arellak/elevenlabs-wrapper" />
+<img src="https://img.shields.io/github/stars/arellak/elevenlabs-wrapper" />
 </p>
 
+<p align="center">
+Check out the <a href="https://www.npmjs.com/package/elevenlabs-node">npm</a> page!
+</p>
 
 ## Requirements
 - [Node.js](https://nodejs.org/en/)
@@ -40,10 +45,12 @@ const elevenLabs = new ElevenLabs(
 ## Methods
 ```js
 // Converts text to speech, saves the file to the output folder and returns the relative path to the file.
-// Output file is in the following format: date-time.mp3
-elevenLabs.tts(
+// Output file is in the following format: TTS_date-time.mp3
+// Returns an object with the following structure: { code: CODE, message: "STATUS_MESSAGE" }
+await elevenLabs.tts(
     text,
     voiceId,
+    optionalPath = "",
     modelId = "eleven_multilingual_v2",
     voiceSettings = {
         stability: 0.5,
@@ -59,6 +66,7 @@ elevenLabs.tts(
 | --- | --- | --- | --- | --- |
 | text | string | text to be converted to speech | undefined | - |
 | voiceId | string | voice id to be used | undefined | - |
+| optionalPath | string | optional path to save the file to | "" | - |
 | modelId | string | model id to be used | eleven_multilingual_v2 | [eleven_monolingual_v1, eleven_multilingual_v2] |
 | voiceSettings | object | voice settings | {stability: 0.5, similarity_boost: 0.75} | {stability, similarity_boost, style, use_speaker_boost} |
 | params | object | additional params | {output_format: "mp3_44100_128", optimize_streaming_latency: 0} | - |
@@ -74,66 +82,70 @@ elevenLabs.tts(
 
 ```js
 // Returns the remaining letters you have left for the month
-elevenLabs.getRemainingLetters();
+await elevenLabs.getRemainingLetters();
 
 // Returns all the available models
-elevenLabs.getModels();
+await elevenLabs.getModels();
 
 // Returns all the available voices
-elevenLabs.getVoices();
+await elevenLabs.getVoices();
 
 // Returns all the voices you created yourself
-elevenLabs.getCustomVoices();
+await elevenLabs.getCustomVoices();
 
 // Returns the IDs and names of the voices you created yourself
 // Example: { name:"My Voice", id:"123456789" }
-elevenLabs.getCustomVoiceIds();
+await elevenLabs.getCustomVoiceIds();
 
 // Returns default settings for voices
-elevenLabs.getDefaultVoiceSettings();
+await elevenLabs.getDefaultVoiceSettings();
 
 // Returns settings for a specific voice
-elevenLabs.getVoiceSettings(voiceId);
+await elevenLabs.getVoiceSettings(voiceId);
 
 // Returns a given voice
-elevenLabs.getVoice(voiceId);
+await eleveawait nLabs.getVoice(voiceId);
 
 // Returns the sample names and IDs for a given voice
 // Example: { name:"My Sample", sampleId:"123456789" }
-elevenLabs.getSampleIds(voiceId);
+await elevenLabs.getSampleIds(voiceId);
 
 // Downloads audio for a given sample from a given voice
 // Saves it to the output folder specified in the constructor and returns the relative path to the file.
-// Output file is in the following format: sample_date-time.mp3
-elevenLabs.getAudioFromSample(voiceId, sampleId);
+// Output file is in the following format: SAMPLE_date-time.mp3
+// Optional Path is the same as in the tts method.
+// Returns an object with the following structure: { code: CODE, message: "STATUS_MESSAGE" }
+await elevenLabs.getAudioFromSample(voiceId, sampleId, optionalPath = "");
 
 // Returns the history for the given Account
-elevenLabs.getHistory();
+await elevenLabs.getHistory();
 
 // Returns the data for the given historyItemId
-elevenLabs.getHistoryItem(historyItemId);
+await elevenLabs.getHistoryItem(historyItemId);
 
 // Downloads the audio for the given historyItemId
 // Saves it to the output folder specified in the constructor and returns the relative path to the file.
-// Output file is in the following format: history_date-time.mp3
-elevenLabs.getAudioFromHistoryItem(historyItemId);
+// Output file is in the following format: HISTORY_date-time.mp3
+// Optional Path is the same as in the tts method.
+// Returns an object with the following structure: { code: CODE, message: "STATUS_MESSAGE" }
+await elevenLabs.getAudioFromHistoryItem(historyItemId, optionalPath = "");
 
 // Download an array of history items
 // Saves them to the output folder specified in the constructor and returns an array of relative paths to the files.
-// Output files are in the following format: history_date-time.zip
-// Doesn't work yet.
-elevenLabs.downloadHistoryItems(historyItemIds);
+// Optional Path is the same as in the tts method.
+// Output files are in the following format: HISTORY_date-time.zip
+await elevenLabs.downloadHistoryItems(historyItemIds, optionalPath = "");
 
 // Returns information about the user's account
-elevenLabs.getUserInfo();
+await elevenLabs.getUserInfo();
 
 // Returns the user's subscription information
-elevenLabs.getUserSubscriptionInfo();
+await elevenLabs.getUserSubscriptionInfo();
 ```
 
 ```js
 // Edit voice settings for a given voice
-elevenLabs.editVoiceSettings(voiceId, voiceSettings);
+await elevenLabs.editVoiceSettings(voiceId, voiceSettings);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
@@ -144,7 +156,7 @@ elevenLabs.editVoiceSettings(voiceId, voiceSettings);
 ```js
 // Add a new voice with the given name, description, file paths and labels
 // Returns the voice id
-elevenLabs.addVoice(name, filePaths, optionalSettings);
+await elevenLabs.addVoice(name, filePaths, optionalSettings);
 ```
 | Option | Type | Description | default | notes | required |
 | --- | --- | --- | --- | --- | --- |
@@ -157,14 +169,14 @@ elevenLabs.addVoice(name, filePaths, optionalSettings);
 const newVoiceId = await elevenLabs.addVoice(
     "TEST NAME", 
     [
-        Path.resolve("./output/test3.mp3")
+        "./output/test3.mp3",
     ], 
     {
         labels: { 
             age: "early 20s"
         },
-        description: "test description"
-    }
+        description: "test description",
+    },
 );
 ```
 
@@ -172,7 +184,7 @@ const newVoiceId = await elevenLabs.addVoice(
 // Edit the voice with a given name and voice id
 // include the optional settings you want to change
 // returns status code if it was successful
-elevenLabs.editVoice(name, voiceId, optionalSettings);
+await elevenLabs.editVoice(name, voiceId, optionalSettings);
 ```
 | Option | Type | Description | default | notes | required |
 | --- | --- | --- | --- | --- | --- |
@@ -187,18 +199,18 @@ const editedVoice = await elevenLabs.editVoice(
     "YOUR_VOICE_ID",
     {
         filePaths: [
-            Path.resolve("./output/test3.mp3")
+            "./output/test3.mp3",
         ],
         labels: {
-            age: "early 20s"
-        }
-    }
+            age: "early 20s",
+        },
+    },
 );
 ```
 
 ```js
 // Deletes a voice
-elevenLabs.deleteVoice(voiceId);
+await elevenLabs.deleteVoice(voiceId);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
@@ -207,7 +219,7 @@ elevenLabs.deleteVoice(voiceId);
 
 ```js
 // Deletes a sample with a given voice id and sample id
-elevenLabs.deleteSample(voiceId, sampleId);
+await elevenLabs.deleteSample(voiceId, sampleId);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
@@ -217,7 +229,7 @@ elevenLabs.deleteSample(voiceId, sampleId);
 
 ```js
 // Deletes a history item with a given history item id
-elevenLabs.deleteHistoryItem(historyItemId);
+await elevenLabs.deleteHistoryItem(historyItemId);
 ```
 | Option | Type | Description | default | notes |
 | --- | --- | --- | --- | --- |
