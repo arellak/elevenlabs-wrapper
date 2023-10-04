@@ -22,5 +22,15 @@
     "eslint": "^8.49.0"
   },
   "dependencies": {
-  }
+  },
+  "keywords": [
+    "api",
+    "eleven-labs",
+    "text",
+    "to",
+    "speech",
+    "ai",
+    "voice",
+    "elevenlabs"
+  ]
 }
