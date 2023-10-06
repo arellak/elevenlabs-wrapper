@@ -11,7 +11,7 @@ Wrapper for the ElevenLabs API
 </p>
 
 <p align="center">
-Check out the <a href="https://www.npmjs.com/package/elevenlabs-node">npm</a> page!
+Check out the <a href="https://www.npmjs.com/package/@arellak/elevenlabs-wrapper">npm</a> page!
 </p>
 
 ## Requirements

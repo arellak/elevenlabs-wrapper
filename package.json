@@ -1,6 +1,6 @@
 {
   "name": "@arellak/elevenlabs-wrapper",
-  "version": "1.1.5",
+  "version": "1.1.9",
   "engines": {
     "node": ">=18.18.0"
   },
@@ -26,4 +26,15 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   }
+}
+  "keywords": [
+    "api",
+    "eleven-labs",
+    "text",
+    "to",
+    "speech",
+    "ai",
+    "voice",
+    "elevenlabs"
+  ]
 }
