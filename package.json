@@ -21,7 +21,6 @@
     "@babel/eslint-parser": "^7.22.15",
     "eslint": "^8.49.0"
   },
-  "dependencies": {},
   "keywords": [
     "api",
     "eleven-labs",
