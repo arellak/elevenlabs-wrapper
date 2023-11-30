@@ -72,3 +72,42 @@ console.log(userInfo);
 
 const subscriptionInfo = await elevenLabs.getUserSubscriptionInfo();
 console.log(subscriptionInfo);
+
+const projects = await elevenLabs.getProjects();
+console.log(projects);
+
+const specificProject = await elevenLabs.getProjectById("ID");
+console.log(specificProject);
+
+const addProject = await elevenLabs.addProject("DEFAULT_MODEL_ID", "DEFAULT_PARAGRAPH_VOICE_ID", "DEFAULT_TITLE_VOICE_ID", "NAME", "PRONOUNCIATION_DICTIONARY_LOCATORS");
+console.log(addProject);
+
+const deleteProject = await elevenLabs.deleteProject("PROJECT_ID");
+console.log(deleteProject);
+
+const convertProject = await elevenLabs.convertProject("PROJECT_ID");
+console.log(convertProject);
+
+const projectSnapshots = await elevenLabs.getProjectSnapshots("PROJECT_ID");
+console.log(projectSnapshots);
+
+const streamProjectAudio = await elevenLabs.streamProjectAudio("PROJECT_ID", "PROJECT_SNAPSHOT_ID");
+console.log(streamProjectAudio);
+
+const chapters = await elevenLabs.getChapters("PROJECT_ID");
+console.log(chapters);
+
+const chapterById = await elevenLabs.getChapterById("PROJECT_ID", "CHAPTER_ID");
+console.log(chapterById);
+
+const deleteChapter = await elevenLabs.deleteChapter("PROJECT_ID", "CHAPTER_ID");
+console.log(deleteChapter);
+
+const convertChapter = await elevenLabs.convertChapter("PROJECT_ID", "CHAPTER_ID");
+console.log(convertChapter);
+
+const chapterSnapshots = await elevenLabs.getChapterSnapshots("PROJECT_ID", "CHAPTER_ID");
+console.log(chapterSnapshots);
+
+const streamChapterAudio = await elevenLabs.streamChapterAudio("PROJECT_ID", "CHAPTER_ID", "CHAPTER_SNAPSHOT_ID");
+console.log(streamChapterAudio);

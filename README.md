@@ -141,6 +141,34 @@ await elevenLabs.getUserInfo();
 
 // Returns the user's subscription information
 await elevenLabs.getUserSubscriptionInfo();
+
+await elevenLabs.getProjects();
+
+await elevenLabs.getProjectById("ID");
+
+// Additional parameters:
+// acxVolumeNormalization = false, author = "", fromDocument = "", fromUrl = "", isbnNumber = "", qualityPreset = "standard", title = ""
+await elevenLabs.addProject("DEFAULT_MODEL_ID", "DEFAULT_PARAGRAPH_VOICE_ID", "DEFAULT_TITLE_VOICE_ID", "NAME", "PRONOUNCIATION_DICTIONARY_LOCATORS");
+
+await elevenLabs.deleteProject("PROJECT_ID");
+
+await elevenLabs.convertProject("PROJECT_ID");
+
+await elevenLabs.getProjectSnapshots("PROJECT_ID");
+
+await elevenLabs.streamProjectAudio("PROJECT_ID", "PROJECT_SNAPSHOT_ID");
+
+await elevenLabs.getChapters("PROJECT_ID");
+
+await elevenLabs.getChapterById("PROJECT_ID", "CHAPTER_ID");
+
+await elevenLabs.deleteChapter("PROJECT_ID", "CHAPTER_ID");
+
+await elevenLabs.convertChapter("PROJECT_ID", "CHAPTER_ID");
+
+await elevenLabs.getChapterSnapshots("PROJECT_ID", "CHAPTER_ID");
+
+await elevenLabs.streamChapterAudio("PROJECT_ID", "CHAPTER_ID", "CHAPTER_SNAPSHOT_ID");
 ```
 
 ```js
@@ -238,7 +266,7 @@ await elevenLabs.deleteHistoryItem(historyItemId);
 
 ## Need help? 
 Discord: @arellak<br>
-E-Mail: [contact@arellak.de](mailto:contact@arellak.de)
+E-Mail: [nimble0@protonmail.com](mailto:nimble0@protonmail.com)
 
 ## FAQ
 ### How do I get an API Key?
